@@ -151,13 +151,14 @@ static void TestNetworkConfig(void)
     char reply[100] = {0};
     size_t replyLen = sizeof(reply);
     char cmd[200] = {0};
-    sprintf_s(cmd, sizeof(cmd), "SET_NETWORK %.*s ssid \"example\"", networkIdLen, networkId);
+    int temp = 0 
+    temp = sprintf_s(cmd, sizeof(cmd), "SET_NETWORK %.*s ssid \"example\"", networkIdLen, networkId);
     ret += SendCtrlCommand(cmd, reply, &replyLen);
     replyLen = sizeof(reply);
-    sprintf_s(cmd, sizeof(cmd), "SET_NETWORK %.*s psk \"012345678\"", networkIdLen, networkId);
+    temp = sprintf_s(cmd, sizeof(cmd), "SET_NETWORK %.*s psk \"012345678\"", networkIdLen, networkId);
     ret += SendCtrlCommand(cmd, reply, &replyLen);
     replyLen = sizeof(reply);
-    sprintf_s(cmd, sizeof(cmd), "ENABLE_NETWORK %.*s", networkIdLen, networkId);
+    temp = sprintf_s(cmd, sizeof(cmd), "ENABLE_NETWORK %.*s", networkIdLen, networkId);
     ret += SendCtrlCommand(cmd, reply, &replyLen);
     replyLen = sizeof(reply);
     ret += SendCtrlCommand("RECONNECT", reply, &replyLen);
@@ -166,7 +167,7 @@ static void TestNetworkConfig(void)
         SAMPLE_INFO("network config success.");
         return;
     }
-    sprintf_s(cmd, sizeof(cmd), "REMOVE_NETWORK %.*s", networkIdLen, networkId);
+    temp = sprintf_s(cmd, sizeof(cmd), "REMOVE_NETWORK %.*s", networkIdLen, networkId);
     SendCtrlCommand(cmd, reply, &replyLen);
     SAMPLE_ERROR("network config failed remove network [%.*s].", networkIdLen, networkId);
 }
