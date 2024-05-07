@@ -151,14 +151,23 @@ static void TestNetworkConfig(void)
     char reply[100] = {0};
     size_t replyLen = sizeof(reply);
     char cmd[200] = {0};
-    int temp = 0 
+    int temp = 0; 
     temp = sprintf_s(cmd, sizeof(cmd), "SET_NETWORK %.*s ssid \"example\"", networkIdLen, networkId);
+    if (temp != 0) {
+        printf("result is %d\n", temp);
+    };
     ret += SendCtrlCommand(cmd, reply, &replyLen);
     replyLen = sizeof(reply);
     temp = sprintf_s(cmd, sizeof(cmd), "SET_NETWORK %.*s psk \"012345678\"", networkIdLen, networkId);
+    if (temp != 0) {
+        printf("result is %d\n", temp);
+    };
     ret += SendCtrlCommand(cmd, reply, &replyLen);
     replyLen = sizeof(reply);
     temp = sprintf_s(cmd, sizeof(cmd), "ENABLE_NETWORK %.*s", networkIdLen, networkId);
+    if (temp != 0) {
+        printf("result is %d\n", temp);
+    };
     ret += SendCtrlCommand(cmd, reply, &replyLen);
     replyLen = sizeof(reply);
     ret += SendCtrlCommand("RECONNECT", reply, &replyLen);
@@ -168,6 +177,9 @@ static void TestNetworkConfig(void)
         return;
     }
     temp = sprintf_s(cmd, sizeof(cmd), "REMOVE_NETWORK %.*s", networkIdLen, networkId);
+    if (temp != 0) {
+        printf("result is %d\n", temp);
+    };
     SendCtrlCommand(cmd, reply, &replyLen);
     SAMPLE_ERROR("network config failed remove network [%.*s].", networkIdLen, networkId);
 }
